@@ -1,0 +1,42 @@
+We need to install the following libraries to arrive at the solution
+1. Anaconda with python 3.6
+2.Gensim
+3.Keras
+4.Tensorflow
+
+To execute in spyder , open the programs in spyder and run it
+To execute from command prompt , type the following command in command line
+python -m programcode.trainer  
+
+Initially our data folder contains only train and test datasets given from your end for this problem statement, once all the programs execution has been done , then it will create a models inside model folder like model.h5, model.json and it will create file called vocab_tokenizer inside data folder, these models is deployed into production later for classification of programming languages.
+
+In build model function of trainer.py i set number of epochs= 2 because of low computational power, you can set upto 8 epoch,i have tried till 10 epochs, but got good accuracy at epoch= 8  of around 99.5% accuracy for training data and 87% accuracy for test data
+
+
+but i shared you a screenshot with number of epochs = 2 and I got training accuracy of 99% with test accuracy of 84.78%, and I encountered with some warnings stating that "UnicodeDecodeError", this can be eliminated during data cleaning phase, due to time constraints I am not involved in any data cleaning phase.
+
+trainer.py, in this phase we train our neural network to build vocabulary, which consists of words (common words of given training data),then we try splitting the code into list of words and remove those which are not in vocobulary, then we put rest of the words into neural network for detection.
+
+To build vocobulary, we have to scan all code in data/code/train and extract common words in it, which will create a new vocobulary for us, in trainer.py file I written build_vocab() function which will help to build vocobulary.
+
+Once this has been done we have to build vocab_tokenizer, just its like a dictionary, which maps each word in vocubulary to a number.I used Tokenizer provided by keras to build vocab_tokenizer,check build_vocab_tokenizer_from_set() function in trainer.py and we will save it as a file for further use.
+
+Next we involve in building word vectors, this can be done using words2vec algorithm from gensim package.
+
+Then , we should train our Neural network to recognise the programming languages.
+
+once the training has been done and we are OK with our training and test accuracy , we will save our model for deployment in productions.
+
+Based on the language which has most probability score, we will choose it as a recognised programming language.
+
+
+
+Check my github repository  " https://github.com/suhasdatascientist/Answer-bot-for-live-trivia-games ", which i have solved similar kind of problem with probability score few months back.
+
+
+
+Then run the program languagedetect.py file if you are in spyder or else type the following command in command prompt to test our model on new dataset
+
+python -m programcode.languagedetect
+
+i placed sample java code inside languagedetect.py file, so i got output when i run above code as " java ", replace with your own code to check the accuracy if needed, same screenshot has been shared in the email.
